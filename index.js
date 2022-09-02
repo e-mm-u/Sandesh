@@ -1,4 +1,4 @@
-console.log('paisi ')
+// console.log('paisi ')
 // ------------------------------------------------categories section ----------------------
 const categories_section = document.getElementById('categories');
 //  get the categpries names 
@@ -27,6 +27,7 @@ const set_categories = (news_category) => {
         const child = document.createElement('div');
 
         child.setAttribute('id', category.category_id);
+        child.setAttribute('onclick', `clicked("${category.category_id}")`)
 
         child.innerHTML = `
             <h6> ${category.category_name}</h6>    
@@ -37,6 +38,7 @@ const set_categories = (news_category) => {
 }
 get_categories();
 // ------------------------------------------------news section ----------------------
+
 const news_container = document.getElementById('news-container');
 
 const get_any_news = (id) => {
@@ -50,21 +52,11 @@ const show_news = (data) => {
     const news_container = document.getElementById('news-container');
 
     data.forEach(element => {
-        console.log(element);
+        // console.log(element);
         const child = document.createElement('div');
         child.setAttribute('id', element._id);
         child.classList.add('col');
 
-        // child.innerHTML = `
-        //     <div class="card">
-        //         <img src="${element.thumbnail_url}" class="card-img-top" alt="thumbnail">
-
-        //         <div class="card-body">
-        //             <h5 class="card-title">${element.title}</h5>
-        //             <p class="card-text">${element.details}</p>
-        //         </div>
-        //     </div>
-        // `
         child.innerHTML = `
             <div class="card mx-auto"  style="max-width: 900px;">
                 <div class="row g-0">
@@ -113,4 +105,11 @@ const show_news = (data) => {
     });
 }
 
+// -------------------------------event listen on click to show news ------------
+// console.log(document.getElementById('04'))
+function clicked(id){
+    console.log(id);
+    news_container.innerHTML = ` `
+    get_any_news(id);
+}
 get_any_news('01')
