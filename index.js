@@ -44,7 +44,7 @@ const news_container = document.getElementById('news-container');
 const get_any_news = (id) => {
     fetch(`https://openapi.programming-hero.com/api/news/category/${id}`)
         .then(res => res.json())
-        .then(data => show_news(data.data))
+        .then(data => show_news(data.data?data.data : not_found()))
 }
 
 const show_news = (data) => {
@@ -92,11 +92,48 @@ const show_news = (data) => {
                             </div>
 
                             <div class="d-flex align-items-center">
-                                <a class="btn text-primary" href=""><i class="fa-solid fa-arrow-right"></i></a>
+                                <a class="btn text-primary" data-bs-toggle='modal' data-bs-target='#newsModal'><i class="fa-solid fa-arrow-right"></i></a>
                             </div>
-
                         </div>
+                    </div>
+                </div>
+            </div>
 
+            <div class="modal fade" id="newsModal" tabindex="-1" aria-labelledby="newsModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-fullscreen">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="newsModalLabel">${element.title}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                                
+                                <div class="d-flex justify-content-end align-items-center gap-3">
+                                    <i class="fa-solid fa-eye text-danger"> ${element.total_view}</i>
+                                    <i class="fa-solid fa-star text-warning">  ${element.rating.number}</i>
+                                    <i> ${element.rating.badge} </i>
+                                </div>
+
+                                <div class="row row-cols-1 mx-auto">
+                                    <img src="${element.image_url}" alt="img">
+                                </div>
+                                <hr>
+                                
+                                <div class="row row-cols-2 mx-auto">
+                                    <div>Author : ${element.author.name}</div>
+                                    <div>Published : ${element.author.published_date}</div>
+                                </div>
+                                <hr>
+
+                                <div>
+                                    <p>${element.details}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -111,5 +148,8 @@ function clicked(id){
     console.log(id);
     news_container.innerHTML = ` `
     get_any_news(id);
+}
+function not_found(){
+    console.log('nothing found');
 }
 get_any_news('01')
