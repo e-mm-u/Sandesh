@@ -49,15 +49,15 @@ const get_any_news = (id) => {
 
 const show_news = (data) => {
 
-    const news_container = document.getElementById('news-container');
-
     const len = data.length;
-    
+    // show not available page -----------
     if(len === 0){
         document.getElementById('NotFound').classList.remove('d-none');
     }else{
         document.getElementById('NotFound').classList.add('d-none');
     }
+
+    news_container.innerHTML = ` `;
 
     data.forEach(element => {
         // console.log(element);
@@ -82,7 +82,7 @@ const show_news = (data) => {
                                 <div> <img src="${element.author.img}" class="img-thumbnail" alt="img" style="height:50px; width:50px; border-radius:50%" > </div>
                                 <div class="d-flex flex-column align-items-center">
                                     <small>${element.author.name ? element.author.name : 'Not available'}</small>
-                                    <small class="text-secondary">${element.author.published_date.slice(0,10)}</small>
+                                    <small class="text-secondary">${element.author.published_date? element.author.published_date.slice(0,10): 'Unavailable'}</small>
                                 </div>
                             </div>
 
@@ -130,7 +130,7 @@ const show_news = (data) => {
                                 
                                 <div class="row row-cols-2 mx-auto">
                                     <div>Author : ${element.author.name}</div>
-                                    <div>Published : ${element.author.published_date}</div>
+                                    <div>Published : ${element.author.published_date ? element.author.published_date : 'Unavailable'}</div>
                                 </div>
                                 <hr>
 
@@ -154,7 +154,6 @@ const show_news = (data) => {
 // console.log(document.getElementById('04'))
 function clicked(id){
     console.log(id);
-    news_container.innerHTML = ` `
     get_any_news(id);
 }
 
