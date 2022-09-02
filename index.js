@@ -44,12 +44,20 @@ const news_container = document.getElementById('news-container');
 const get_any_news = (id) => {
     fetch(`https://openapi.programming-hero.com/api/news/category/${id}`)
         .then(res => res.json())
-        .then(data => show_news(data.data?data.data : not_found()))
+        .then(data => show_news(data.data))
 }
 
 const show_news = (data) => {
 
     const news_container = document.getElementById('news-container');
+
+    const len = data.length;
+    
+    if(len === 0){
+        document.getElementById('NotFound').classList.remove('d-none');
+    }else{
+        document.getElementById('NotFound').classList.add('d-none');
+    }
 
     data.forEach(element => {
         // console.log(element);
@@ -73,14 +81,14 @@ const show_news = (data) => {
                             <div class="author d-flex align-items-center gap-3">
                                 <div> <img src="${element.author.img}" class="img-thumbnail" alt="img" style="height:50px; width:50px; border-radius:50%" > </div>
                                 <div class="d-flex flex-column align-items-center">
-                                    <small>${element.author.name}</small>
+                                    <small>${element.author.name ? element.author.name : 'Not available'}</small>
                                     <small class="text-secondary">${element.author.published_date.slice(0,10)}</small>
                                 </div>
                             </div>
 
                             <div class="views d-flex gap-2 align-items-center">
                                 <i class="fa-solid fa-eye text-danger"></i>
-                                <i><strong><small>${element.total_view}</small></strong></i>
+                                <i><strong><small>${element.total_view ? element.total_view : 'Not available'}</small></strong></i>
                             </div>
 
                             <div class="stars d-flex align-items-center text-warning gap-1">
@@ -149,7 +157,5 @@ function clicked(id){
     news_container.innerHTML = ` `
     get_any_news(id);
 }
-function not_found(){
-    console.log('nothing found');
-}
+
 get_any_news('01')
