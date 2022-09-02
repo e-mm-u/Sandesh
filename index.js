@@ -57,6 +57,8 @@ const show_news = (data) => {
         document.getElementById('NotFound').classList.add('d-none');
     }
 
+    quantity(len);
+
     news_container.innerHTML = ` `;
 
     data.forEach(element => {
@@ -150,8 +152,16 @@ const show_news = (data) => {
     });
 }
 
+// ---------- show quantity here ---------------
+function quantity(len){
+    document.getElementById('quantity').innerHTML = `
+        <div class="mx-auto">
+            <p> ${len} results available </p>
+        </div>
+    `
+}
 // -------------------------------event listen on click to show news ------------
-// console.log(document.getElementById('04'))
+
 function clicked(id){
     console.log(id);
     get_any_news(id);
