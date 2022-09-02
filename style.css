@@ -1,4 +1,8 @@
-.NotFound{
+.NotFound, #spinner{
     height: 60vh;
     width: 100%;
 }
+/* #spinner{
+    height: 60vh;
+    width: 100%;
+} */

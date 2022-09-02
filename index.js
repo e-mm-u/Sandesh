@@ -1,5 +1,5 @@
 // console.log('paisi ')
-// ------------------------------------------------categories section ----------------------
+// ------------------------------------------categories section ----------------------
 const categories_section = document.getElementById('categories');
 //  get the categpries names 
 const get_categories = ()=> {
@@ -57,6 +57,7 @@ const show_news = (data) => {
         document.getElementById('NotFound').classList.add('d-none');
     }
 
+    // functionality to show how many results are found-------------
     quantity(len);
 
     news_container.innerHTML = ` `;
@@ -150,6 +151,9 @@ const show_news = (data) => {
         `
         news_container.appendChild(child)
     });
+
+    // spin loader stops 
+    spinloader(false);
 }
 
 // ---------- show quantity here ---------------
@@ -160,11 +164,27 @@ function quantity(len){
         </div>
     `
 }
+
+//------------spin loader functionalities --------
+const spinner = document.getElementById('spinner');
+const spinloader = isloading => {
+
+    if (isloading) {
+        spinner.classList.remove('d-none');
+    } else {
+        spinner.classList.add('d-none');
+    }
+
+}
+
 // -------------------------------event listen on click to show news ------------
 
 function clicked(id){
     console.log(id);
+    // spin loader starts here
+    spinloader(true);
+    
     get_any_news(id);
 }
 
-get_any_news('01')
+get_any_news('01');
