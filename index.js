@@ -71,16 +71,16 @@ const show_news = (data) => {
         child.innerHTML = `
             <div class="card mx-auto"  style="max-width: 900px;">
                 <div class="row g-0">
-                    <div class="col-md-3">
+                    <div class="col col-12 col-md-4">
                         <img src="${element.thumbnail_url}" class="img-fluid rounded-start" alt="...">
                     </div>
-                    <div class="col-md-9">
+                    <div class="col col-12 col-md-8">
                         <div class="card-body my-3">
                             <h5 class="card-title">${element.title}</h5>
                             <p class="card-text text-secondary my-3">${element.details.slice(0,200)}...</p>
                         </div>
 
-                        <div class="d-flex justify-content-around mb-0">
+                        <div class="d-flex flex-wrap gap-3 justify-content-around mb-0">
                             <div class="author d-flex align-items-center gap-3">
                                 <div> <img src="${element.author.img}" class="img-thumbnail" alt="img" style="height:50px; width:50px; border-radius:50%" > </div>
                                 <div class="d-flex flex-column align-items-center">
