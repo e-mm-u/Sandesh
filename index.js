@@ -32,7 +32,7 @@ const set_categories = (news_category) => {
         child.innerHTML = `
             <h6> ${category.category_name}</h6>    
         `
-        console.log(child);
+        // console.log(child);
         categories_section.appendChild(child);
     });
 }
@@ -65,7 +65,7 @@ const show_news = (data) => {
     data.forEach(element => {
         // console.log(element);
         const child = document.createElement('div');
-        child.setAttribute('id', element._id);
+        // child.setAttribute('id', element._id);
         child.classList.add('col');
 
         child.innerHTML = `
@@ -103,18 +103,18 @@ const show_news = (data) => {
                             </div>
 
                             <div class="d-flex align-items-center">
-                                <a class="btn text-primary" data-bs-toggle='modal' data-bs-target='#newsModal'><i class="fa-solid fa-arrow-right"></i></a>
+                                <a class="btn text-primary" data-bs-toggle='modal' data-bs-target='#id${element._id}'><i class="fa-solid fa-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="modal fade" id="newsModal" tabindex="-1" aria-labelledby="newsModalLabel" aria-hidden="true">
+            <div class="modal fade" id='id${element._id}' tabindex="-1" aria-labelledby='${element._id}Label' aria-hidden="true">
                 <div class="modal-dialog modal-fullscreen">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="newsModalLabel">${element.title}</h5>
+                            <h5 class="modal-title">${element.title}</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -132,7 +132,7 @@ const show_news = (data) => {
                                 <hr>
                                 
                                 <div class="row row-cols-2 mx-auto">
-                                    <div>Author : ${element.author.name}</div>
+                                    <div>Author : ${element.author.name ? element.author.name : 'Not available'}</div>
                                     <div>Published : ${element.author.published_date ? element.author.published_date : 'Unavailable'}</div>
                                 </div>
                                 <hr>
@@ -149,6 +149,7 @@ const show_news = (data) => {
                 </div>
             </div>
         `
+        console.log(child)
         news_container.appendChild(child)
     });
 
@@ -180,7 +181,7 @@ const spinloader = isloading => {
 // -------------------------------event listen on click to show news ------------
 
 function clicked(id){
-    console.log(id);
+    // console.log(id);
     // spin loader starts here
     spinloader(true);
     
