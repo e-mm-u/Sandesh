@@ -1,7 +1,10 @@
 // console.log('paisi ')
 // ------------------------------------------categories section ----------------------
+
 const categories_section = document.getElementById('categories');
-//  get the categpries names 
+
+//  ----------------------get the categpries names -----------------------
+
 const get_categories = () => {
     fetch('https://openapi.programming-hero.com/api/news/categories')
         .then(res => res.json())
@@ -20,7 +23,8 @@ const get_categories = () => {
 //     set_categories(sorted_categories);
 // }
 
-// set the categories name in a div element 
+// ---------------------set the categories name in a div element -----------------------
+
 const set_categories = (news_category) => {
 
     news_category.forEach(category => {
@@ -37,7 +41,9 @@ const set_categories = (news_category) => {
         categories_section.appendChild(child);
     });
 }
+
 get_categories();
+
 // ------------------------------------------------news section ----------------------
 
 const news_container = document.getElementById('news-container');
@@ -59,14 +65,15 @@ const show_news = (d) => {
 
     const data = d.data;
     const len = data.length;
-    // show not available page -----------
+
+    // ------show not available page -----------
     if (len === 0) {
         document.getElementById('NotFound').classList.remove('d-none');
     } else {
         document.getElementById('NotFound').classList.add('d-none');
     }
 
-    // functionality to show how many results are found-------------
+    // ----functionality to show how many results are found-------------
     quantity(len);
 
     news_container.innerHTML = ` `;
@@ -200,7 +207,7 @@ function clicked(id) {
 }
 
 
-// --------------------------------------------------------------
+// --------------------------- sort news by view count -----------------------------------
 function sortMeBy(arg, sel, elem, order) {
     var $selector = $(sel),
         $element = $selector.children(elem);
@@ -233,4 +240,5 @@ $(document).on('click', '.sort12', function () {
 });
 
 // --------------------------------------------------------------
+
 get_any_news('01');
