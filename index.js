@@ -6,6 +6,7 @@ const get_categories = ()=> {
     fetch('https://openapi.programming-hero.com/api/news/categories')
         .then(res => res.json())
         .then(data => set_categories(data.data.news_category))
+        .catch(error => console.log(error))
 };
 
 // sort the categories name by alphabet
@@ -41,14 +42,22 @@ get_categories();
 
 const news_container = document.getElementById('news-container');
 
-const get_any_news = (id) => {
-    fetch(`https://openapi.programming-hero.com/api/news/category/${id}`)
-        .then(res => res.json())
-        .then(data => show_news(data.data))
+const get_any_news = async(id) => {
+
+    try {
+        const res = await fetch(`https://openapi.programming-hero.com/api/news/category/${id}`);
+        const data = await res.json();
+        show_news(data);
+    }
+    catch(error){
+        console.log(error);
+    }
+    
 }
 
-const show_news = (data) => {
+const show_news = (d) => {
 
+    const data = d.data;
     const len = data.length;
     // show not available page -----------
     if(len === 0){
@@ -120,9 +129,11 @@ const show_news = (data) => {
                         <div class="modal-body">
                             <div class="container-fluid">
                                 
-                                <div class="d-flex justify-content-end align-items-center gap-3">
-                                    <i class="fa-solid fa-eye text-danger"> ${element.total_view}</i>
-                                    <i class="fa-solid fa-star text-warning">  ${element.rating.number}</i>
+                                <div class="d-flex justify-content-end align-items-center gap-2">
+                                    <i class="fa-solid fa-eye text-danger"></i>
+                                    <i><small>${element.total_view ? element.total_view : 'Not available'}</small></i>
+                                    <i class="fa-solid fa-star text-warning"> </i>
+                                    <i>${element.rating.number}</i>
                                     <i> ${element.rating.badge} </i>
                                 </div>
 
@@ -149,7 +160,7 @@ const show_news = (data) => {
                 </div>
             </div>
         `
-        console.log(child)
+        // console.log(child)
         news_container.appendChild(child)
     });
 
