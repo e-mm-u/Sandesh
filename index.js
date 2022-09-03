@@ -2,7 +2,7 @@
 // ------------------------------------------categories section ----------------------
 const categories_section = document.getElementById('categories');
 //  get the categpries names 
-const get_categories = ()=> {
+const get_categories = () => {
     fetch('https://openapi.programming-hero.com/api/news/categories')
         .then(res => res.json())
         .then(data => set_categories(data.data.news_category))
@@ -16,13 +16,13 @@ const get_categories = ()=> {
 //         sorted_categories.push(category.category_name)       
 //     });
 //     sorted_categories = sorted_categories.sort();
-    
+
 //     set_categories(sorted_categories);
 // }
 
 // set the categories name in a div element 
 const set_categories = (news_category) => {
-    
+
     news_category.forEach(category => {
 
         const child = document.createElement('div');
@@ -42,17 +42,17 @@ get_categories();
 
 const news_container = document.getElementById('news-container');
 
-const get_any_news = async(id) => {
+const get_any_news = async (id) => {
 
     try {
         const res = await fetch(`https://openapi.programming-hero.com/api/news/category/${id}`);
         const data = await res.json();
         show_news(data);
     }
-    catch(error){
+    catch (error) {
         console.log(error);
     }
-    
+
 }
 
 const show_news = (d) => {
@@ -60,9 +60,9 @@ const show_news = (d) => {
     const data = d.data;
     const len = data.length;
     // show not available page -----------
-    if(len === 0){
+    if (len === 0) {
         document.getElementById('NotFound').classList.remove('d-none');
-    }else{
+    } else {
         document.getElementById('NotFound').classList.add('d-none');
     }
 
@@ -74,7 +74,7 @@ const show_news = (d) => {
     data.forEach(element => {
         // console.log(element);
         const child = document.createElement('div');
-        // child.setAttribute('id', element._id);
+        child.setAttribute('total-views', element.total_view ? element.total_view : 0);
         child.classList.add('col');
 
         child.innerHTML = `
@@ -86,7 +86,7 @@ const show_news = (d) => {
                     <div class="col col-12 col-md-8">
                         <div class="card-body my-3">
                             <h5 class="card-title">${element.title}</h5>
-                            <p class="card-text text-secondary my-3">${element.details.slice(0,200)}...</p>
+                            <p class="card-text text-secondary my-3">${element.details.slice(0, 200)}...</p>
                         </div>
 
                         <div class="d-flex flex-wrap gap-3 justify-content-around mb-0">
@@ -94,7 +94,7 @@ const show_news = (d) => {
                                 <div> <img src="${element.author.img}" class="img-thumbnail" alt="img" style="height:50px; width:50px; border-radius:50%" > </div>
                                 <div class="d-flex flex-column align-items-center">
                                     <small>${element.author.name ? element.author.name : 'Not available'}</small>
-                                    <small class="text-secondary">${element.author.published_date? element.author.published_date.slice(0,10): 'Unavailable'}</small>
+                                    <small class="text-secondary">${element.author.published_date ? element.author.published_date.slice(0, 10) : 'Unavailable'}</small>
                                 </div>
                             </div>
 
@@ -169,7 +169,7 @@ const show_news = (d) => {
 }
 
 // ---------- show quantity here ---------------
-function quantity(len){
+function quantity(len) {
     document.getElementById('quantity').innerHTML = `
         <div class="mx-auto">
             <p> ${len} results available </p>
@@ -191,12 +191,46 @@ const spinloader = isloading => {
 
 // -------------------------------event listen on click to show news ------------
 
-function clicked(id){
+function clicked(id) {
     // console.log(id);
     // spin loader starts here
     spinloader(true);
-    
+
     get_any_news(id);
 }
 
+
+// --------------------------------------------------------------
+function sortMeBy(arg, sel, elem, order) {
+    var $selector = $(sel),
+        $element = $selector.children(elem);
+
+    $element.sort(function (a, b) {
+        var an = parseInt(a.getAttribute(arg)),
+            bn = parseInt(b.getAttribute(arg));
+
+        if (order == 'asc') {
+            if (an > bn)
+                return 1;
+            if (an < bn)
+                return -1;
+        } else if (order == 'desc') {
+            if (an < bn)
+                return 1;
+            if (an > bn)
+                return -1;
+        }
+        return 0;
+    });
+
+    $element.detach().appendTo($selector);
+}
+$(document).on('click', '.sort21', function () {
+    sortMeBy('total-views', 'div.news-container', 'div', 'desc');
+});
+$(document).on('click', '.sort12', function () {
+    sortMeBy('total-views', 'div.news-container', 'div', 'asc');
+});
+
+// --------------------------------------------------------------
 get_any_news('01');

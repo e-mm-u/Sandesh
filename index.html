@@ -17,8 +17,8 @@
 
 <body class="m-3 bg-light">
     <header class="px-5 d-flex justify-content-between align-items-center bg-white">
-        <div class="brand fw-bolder text-black">
-            <h1>Ajker Ghotonaprobaho</h1>
+        <div class="brand">
+            <h1 class=" fw-bolder text-black">স <span class="text-danger"> ন্দে </span> শ</h1>
         </div>
         <div class="d-flex gap-3 mx-3">
             <div id="news">
@@ -29,7 +29,7 @@
             </div>
         </div>
     </header>
-    <hr class="text-primary">
+    <hr class="text-primary my-0">
 
     <main>
         <!-- catagories section  -->
@@ -38,7 +38,7 @@
 
             </div>
         </section>
-        <hr class="text-danger">
+        <hr class="text-danger my-0">
 
         <!-- how much results ?  -->
         <section id="quantity" class="quantity bg-white px-5 py-2 text-secondary">
@@ -54,12 +54,20 @@
                 </div>
             </div>
         </section>
+        <hr class="text-primary my-0">
 
+
+        <!-- sorting section -->
+        <section class="p-2 bg-white d-flex justify-content-between mx-4">
+            <a href="#" class="btn btn-secondary border sort21">sort-by-views <i class="fa fa-arrow-down"></i></a>
+            <a href="#" class="btn btn-secondary sort12">sort-by-views <i class="fa fa-arrow-up"></i></a>
+        </section>
+        <hr class="text-danger my-0">
         <!-- news container section  -->
 
-        <section class="news-container my-5 mx-5 bg-white">
+        <section class="my-5 mx-5 bg-white">
 
-            <div id="news-container" class="bg-white row row-cols-1 g-4">
+            <div id="news-container" class="bg-white row row-cols-1 g-4 news-container">
 
             </div>
         </section>
@@ -72,6 +80,10 @@
         </section>
 
     </main>
+
+    <!-- jquery  -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 
     <!-- bootstrap script link  -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
